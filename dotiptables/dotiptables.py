@@ -157,7 +157,11 @@ def main():
         sys.exit(1)
 
     print 'Reading iptables data.'
-    iptables = read_chains(sys.stdin)
+    if opts.input:
+        infile = open(opts.input, 'r')
+    else:
+        infile = sys.stdin
+    iptables = read_chains(infile)
 
     print 'Generating DOT output.'
     output_rules(iptables, opts)
